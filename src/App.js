@@ -66,7 +66,7 @@ function App() {
       {weather1 && (
         <>
         <div className='result fade-in'>
-          <span className='name'><p>{weather1.name}, {weather1.state}</p></span>
+          <span className='name'><h2>{weather1.name}, {weather1.state}</h2></span>
           <p>{weather1.weather[0].description}</p>
           <p>Temperature: {Math.round(weather1.main.temp)}°F</p>
           <p>Feels like: {Math.round(weather1.main.feels_like)}°F</p>
@@ -86,7 +86,7 @@ function App() {
       {/* Second weather card */}
       {weather2 && (
         <div className='result fade-in'>
-          <span className='name'><p>{weather2.name}, {weather2.state}</p></span>
+          <span className='name'><h2>{weather2.name}, {weather2.state}</h2></span>
           <p>{weather2.weather[0].description}</p>
           <p>Temperature: {Math.round(weather2.main.temp)}°F</p>
           <p>Feels like: {Math.round(weather2.main.feels_like)}°F</p>
