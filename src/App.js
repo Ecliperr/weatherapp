@@ -47,7 +47,7 @@ function App() {
   return (
     <div className={`container ${theme ? 'dark' : ''}`}>
       {/* Header */}
-      <h1>Weather App!</h1>
+      <h1>What's the Weather?</h1>
       <input
       type="text"
       value={zip1}
@@ -60,40 +60,44 @@ function App() {
       {/* Throw error */}
       {error && <p className="error">{error}</p>}
       
-      <div>
-
+      
       {/* First weather card */}
       {weather1 && (
-        <>
-        <div className='result fade-in'>
-          <span className='name'><h2>{weather1.name}, {weather1.state}</h2></span>
-          <p>{weather1.weather[0].description}</p>
-          <p>Temperature: {Math.round(weather1.main.temp)}°F</p>
-          <p>Feels like: {Math.round(weather1.main.feels_like)}°F</p>
+      <>
+        <div className="card-row">
+          <div className='result fade-in'>
+            <div className='name'>
+              <h2>{weather1.name}, {weather1.state}</h2>
+              <h2>{Math.round(weather1.main.temp)}°F</h2>
+            </div>
+            <p>{weather1.weather[0].description}</p>
+            <p>Feels like: {Math.round(weather1.main.feels_like)}°F</p>
+          </div>
+
+          {/* Second weather card */}
+          {weather2 && (
+            <div className='result fade-in'>
+              <div className='name'>
+                <h2>{weather2.name}, {weather2.state}</h2>
+                <h2>{Math.round(weather2.main.temp)}°F</h2>
+              </div>
+              <p>{weather2.weather[0].description}</p>
+              <p>Feels like: {Math.round(weather2.main.feels_like)}°F</p>
+            </div>
+          )}
         </div>
 
         <input
-        type="text"
-        value={zip2}
-        onChange={(e) => setZip2(e.target.value)}
-        placeholder='Compare weather?'
+          type="text"
+          value={zip2}
+          onChange={(e) => setZip2(e.target.value)}
+          placeholder='Compare weather?'
         />
 
         <button onClick={() => getWeather(setWeather2, zip2)}>Get Weather</button>
-        </>
+      </>
       )}
-
-      {/* Second weather card */}
-      {weather2 && (
-        <div className='result fade-in'>
-          <span className='name'><h2>{weather2.name}, {weather2.state}</h2></span>
-          <p>{weather2.weather[0].description}</p>
-          <p>Temperature: {Math.round(weather2.main.temp)}°F</p>
-          <p>Feels like: {Math.round(weather2.main.feels_like)}°F</p>
-        </div>
-      )}
-      </div>
-
+      
       {/* Dark mode toggle */}
       <div>
         <button className="themeToggle" 

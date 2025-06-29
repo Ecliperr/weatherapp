@@ -7,6 +7,10 @@
   transition: background 0.3s ease;
 }
 
+body {
+  overflow: hidden;
+}
+
 h1 {
   font-size: 4rem;
 }
@@ -18,7 +22,7 @@ h1 {
 
 .fade-in {
   opacity: 0;
-  transform: translateY(50px);
+  transform: translateX(50px);
   animation: fadeIn 1s ease forwards, fadeSlide 0.6s ease forwards;
 }
 
@@ -30,7 +34,7 @@ h1 {
 
 @keyframes fadeSlide {
   to {
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 
@@ -51,8 +55,6 @@ button {
 button:hover {
   padding: 0.5rem 1rem;
   background-color: rgb(133, 133, 197);
-  cursor: pointer;
-  transition: border-color 0.3s ease;
 }
 
 .error {
@@ -74,28 +76,39 @@ button.themeToggle {
   font-size: 1.5rem;
 }
 
+.card-row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
 .result {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: min(700px, 90%);
-  height: 35vh;
+  width: min(550px, 90%);
+  height: min(40vh, 400px);
   margin: 1rem auto;
   border: 0.25rem solid black;
   border-radius: 1.5rem;
   box-sizing: border-box;
-  font-size: 1.5rem;
+  font-size: 2rem;
   overflow: hidden;
 }
 
 .dark .result {
-  border-color: lightgrey;
+  border-color: darkgray;
+}
+
+.dark .result .name {
+  background-color: darkgray;
 }
 
 .result .name {
   display: flex;
   align-items: start;
+  justify-content: space-between;
   width: calc(100% + 4px);
   box-sizing: border-box;
   font-size: 2rem;
@@ -106,6 +119,8 @@ button.themeToggle {
 }
 
 .result p {
+  position: relative;
+  height: calc(35vh / 2);
   line-height: .25rem;
 }
 
