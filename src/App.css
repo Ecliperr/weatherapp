@@ -87,8 +87,8 @@ button.themeToggle {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: min(550px, 90%);
-  height: min(40vh, 400px);
+  width: min(55vh, 90%);
+  height: min(50vh, 500px);
   margin: 1rem auto;
   border: 0.25rem solid black;
   border-radius: 1.5rem;
@@ -120,8 +120,27 @@ button.themeToggle {
 
 .result p {
   position: relative;
-  height: calc(35vh / 2);
+  /* height: calc(35vh / 2); */
   line-height: .25rem;
+}
+
+.forecast {
+  display: flex;
+  font-size: small;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.forecast-day {
+  text-align: center;
+  margin: 0.25rem;
+  padding: 0.1rem;
+  border-radius: 1rem;
+  background-color: lightgray;
+}
+
+.dark .forecast-day {
+  background-color: black;
 }
 
 @media (max-width: 600px) {

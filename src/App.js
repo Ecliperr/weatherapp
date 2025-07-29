@@ -15,28 +15,37 @@ function App() {
 
   const getWeather = async (setWeather, zip) => {
     const apiKey = '6e779a45797d265c50122efd9d7015db';
-    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?zip=${zip},us&appid=${apiKey}&units=imperial`;
+    const currweatherUrl = `https://api.openweathermap.org/data/2.5/weather?zip=${zip},us&appid=${apiKey}&units=imperial`;
     const zipUrl = `https://api.zippopotam.us/us/${zip}`
 
   try {
-    const [weatherRes, zipRes] = await Promise.all([
-      fetch(weatherUrl),
+    const [currentRes, zipRes] = await Promise.all([
+      fetch(currweatherUrl),
       fetch(zipUrl)
     ]);
 
-    if (!weatherRes.ok || !zipRes.ok) throw new Error('invalid ZIP or API error');
+    if (!currentRes.ok || !zipRes.ok) throw new Error('invalid ZIP or API error');
 
-    const weatherData = await weatherRes.json();
+    const currentData = await currentRes.json();
     const zipData = await zipRes.json();
     const state = zipData.places[0]['state abbreviation'];
+    
+    const {lat, lon} = currentData.coord;
+    const forecastUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}`;
+
+    const forecastRes = await fetch(forecastUrl);
+    if (!forecastRes.ok) throw new Error('Failed to fetch forecast')
+
+    const forecastData = await forecastRes.json();
 
     setWeather({
-      ...weatherData,
-      state
+      ...currentData,
+      state,
+      forecast: forecastData.daily
     });
 
     setError('');
-    console.log(weatherData);
+    console.log(currentData);
     
   } catch (err) {
     setWeather(null);
@@ -72,6 +81,21 @@ function App() {
             </div>
             <p>{weather1.weather[0].description}</p>
             <p>Feels like: {Math.round(weather1.main.feels_like)}°F</p>
+
+            <div className="forecast">
+              {weather1.forecast.slice(1, 6).map((day, index) => (
+                <div key={index} className="forecast-day">
+                  <p>{new Date(day.dt * 1000).toLocaleDateString()}</p>
+                  <p>High: {Math.round(day.temp.max)}°F</p>
+                  <p>Low: {Math.round(day.temp.min)}°F</p>
+                  <p>{day.weather[0].description}</p>
+                  <img
+                    src={`https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
+                    alt="weather icon"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Second weather card */}
@@ -83,6 +107,21 @@ function App() {
               </div>
               <p>{weather2.weather[0].description}</p>
               <p>Feels like: {Math.round(weather2.main.feels_like)}°F</p>
+              
+              <div className="forecast">
+              {weather2.forecast.slice(1, 6).map((day, index) => (
+                <div key={index} className="forecast-day">
+                  <p>{new Date(day.dt * 1000).toLocaleDateString()}</p>
+                  <p>High: {Math.round(day.temp.max)}°F</p>
+                  <p>Low: {Math.round(day.temp.min)}°F</p>
+                  <p>{day.weather[0].description}</p>
+                  <img
+                    src={`https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
+                    alt="weather icon"
+                  />
+                </div>
+              ))}
+            </div>
             </div>
           )}
         </div>
@@ -105,7 +144,8 @@ function App() {
         title="Change Theme">
           {theme ? '☀️' : '🌙'}
         </button>
-      </div>    
+      </div>
+          
     </div>
   );
 }
