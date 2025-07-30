@@ -76,7 +76,9 @@ function App() {
         <div className="card-row">
           <div className='result fade-in'>
             <div className='name'>
-              <h2>{weather1.name}, {weather1.state}</h2>
+              <h2 className={`city${weather1.name.length > 15 ? ' shrink' : ''}`}>
+                {weather1.name}, {weather1.state}
+                </h2>
               <h2>{Math.round(weather1.main.temp)}°F</h2>
             </div>
             <p>{weather1.weather[0].description}</p>
@@ -102,7 +104,9 @@ function App() {
           {weather2 && (
             <div className='result fade-in'>
               <div className='name'>
-                <h2>{weather2.name}, {weather2.state}</h2>
+                <h2 className={`city${weather2.name.length > 12 ? ' shrink' : ''}`}>
+                {weather2.name}, {weather2.state}
+                </h2>
                 <h2>{Math.round(weather2.main.temp)}°F</h2>
               </div>
               <p>{weather2.weather[0].description}</p>

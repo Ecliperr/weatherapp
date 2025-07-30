@@ -107,7 +107,7 @@ button.themeToggle {
 
 .result .name {
   display: flex;
-  align-items: start;
+  align-items: center;
   justify-content: space-between;
   width: calc(100% + 4px);
   box-sizing: border-box;
@@ -120,8 +120,20 @@ button.themeToggle {
 
 .result p {
   position: relative;
-  /* height: calc(35vh / 2); */
   line-height: .25rem;
+}
+
+.city {
+  display: inline-block;
+  transition: transform 0.2s, font-size 0.2s;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  flex-shrink: 1;
+}
+
+.city.shrink {
+  font-size: 2rem;
 }
 
 .forecast {
@@ -151,5 +163,9 @@ button.themeToggle {
 
   .result .name {
     font-size: 1.5rem;
+  }
+
+  body {
+    overflow: visible;
   }
 }
